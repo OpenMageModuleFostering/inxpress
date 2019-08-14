@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+    <config>
+    <default>
+        <carriers>
+            <inxpress>
+                    <active>carriers/inxpress/active</active>
+                    <sallowspecific>0</sallowspecific>
+					<model>inxpress/carrier_inxpress</model>
+                    <name>InXpress</name>
+                    <title>DHL Express</title>
+                    <specificerrmsg>
+                        This shipping method is currently unavailable.
+                        If you would like to ship using this shipping
+                        method, please contact us.
+                    </specificerrmsg>
+                    <handling_type>F</handling_type>
+            </inxpress>
+        </carriers>
+    </default>
+      <modules>
+        <Cedcoss_Inxpress>
+          <version>0.1.0</version>
+        </Cedcoss_Inxpress>
+      </modules>
+      
+      <frontend>
+	    <routers>
+	      <inxpress>
+	        <use>standard</use>
+	         <args>
+	            <module>Cedcoss_Inxpress</module>
+	            <frontName>inxpress</frontName>
+	          </args>
+	      </inxpress>
+	    </routers>
+  	 </frontend>
+      <global>
+        <models>
+          <inxpress>
+            <class>Cedcoss_Inxpress_Model</class>
+            <resourceModel>inxpress_mysql4</resourceModel>
+          </inxpress>
+          <inxpress_mysql4>
+	        <class>Cedcoss_Inxpress_Model_Mysql4</class>	
+		  </inxpress_mysql4>
+        </models>
+        <resources>
+          <inxpress_setup>
+            <setup>
+              <module>Cedcoss_Inxpress</module>
+              <class>Cedcoss_Inxpress_Model_Mysql4_Setup</class>
+            </setup>
+            <connection>
+              <use>core_setup</use>
+            </connection>
+          </inxpress_setup>
+        </resources>
+       </global>
+    </config>

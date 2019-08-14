@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+    <name>InXpress</name>
+    <version>0.1.0</version>
+    <stability>stable</stability>
+    <license>0.3osl</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Get bulk discounted DHL Express rates, displayed in real-time to your customers.</summary>
+    <description>You&#x2019;ll receive your own DHL account with deep group volume international shipping discounts!&#xD;
+DHL Picks up and Delivers your packages. It&#x2019;s That Simple!&#xD;
+Reduce your Fraud Risk with Door-to-Door delivery/tracking to over 225+ Countries.&#xD;
+Leverage the world&#x2019;s largest international shipping carrier and open new international markets.&#xD;
+DHL&#x2019;s transit times are the fastest in the world.&#xD;
+InXpress&#x2019;s group volume international shipping discounts on small parcel you will dramatically increase your international revenue streams.&#xD;
+Fully Integrated Partner of ShipStation&#xD;
+&#xD;
+As the largest small business solution of DHL Express, we are an authorized reseller dramatically reducing international shipping costs by consolidating the shipping volume from thousands of small businesses under one umbrella. When you request your DHL account through InXpress, the DHL account belongs to you; you just pay much less. You will gain access to discounts you would never achieve on your own. DHL picks up and delivers your packages. It&#x2019;s that easy.&#xD;
+***Please note this is not for existing DHL Customers who have shipped on their account within the last 6 months.&#xD;
+</description>
+    <notes>Start selling internationally. Get bulk discounted DHL Express rates, displayed in real-time to your customers</notes>
+    <authors><author><name>Cedcoss</name><user>Cedcoss</user><email>developer@cedcoss.com</email></author></authors>
+    <date>2014-07-24</date>
+    <time>12:29:18</time>
+    <contents><target name="magelocal"><dir name="Cedcoss"><dir name="Inxpress"><dir name="Model"><dir name="Carrier"><file name="Inxpress.php" hash="aa4127f3ec66caff79f838af84ff68b4"/></dir><file name="Inxpress.php" hash="c00b406b60986a41713219995929fe35"/><dir name="Mysql4"><dir name="Inxpress"><file name="Collection.php" hash="fac10a23aad024cd73ea5ec0f618a488"/></dir><file name="Inxpress.php" hash="7b61c380c27488dc8cd885f58fe541ed"/><file name="Setup.php" hash="1d62889c7eb878fab5538068a659ff5b"/></dir></dir><dir name="controllers"><file name="ActivateController.php" hash="a5e72af04c62b64ef2e09a358d6ed6f0"/></dir><dir name="etc"><file name="config.xml" hash="8d9dab285eb63b04d7947dabae870960"/><file name="system.xml" hash="a09af7686796dbe3f9c9a48339f0fc3d"/></dir><dir name="sql"><dir name="inxpress_setup"><file name="mysql4-install-0.1.0.php" hash="e32ac907fa1c315e1d719f6ea898a825"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Cedcoss_Inxpress.xml" hash="ce41d55e28a410c66676332f84947239"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>5.5.0</max></php></required></dependencies>
+</package>
