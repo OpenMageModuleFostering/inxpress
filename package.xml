@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>InXpress</name>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <stability>stable</stability>
     <license>0.3osl</license>
     <channel>community</channel>
@@ -20,9 +20,9 @@ As the largest small business solution of DHL Express, we are an authorized rese
 </description>
     <notes>Start selling internationally. Get bulk discounted DHL Express rates, displayed in real-time to your customers</notes>
     <authors><author><name>Cedcoss</name><user>Cedcoss</user><email>developer@cedcoss.com</email></author></authors>
-    <date>2014-07-24</date>
-    <time>12:29:18</time>
-    <contents><target name="magelocal"><dir name="Cedcoss"><dir name="Inxpress"><dir name="Model"><dir name="Carrier"><file name="Inxpress.php" hash="aa4127f3ec66caff79f838af84ff68b4"/></dir><file name="Inxpress.php" hash="c00b406b60986a41713219995929fe35"/><dir name="Mysql4"><dir name="Inxpress"><file name="Collection.php" hash="fac10a23aad024cd73ea5ec0f618a488"/></dir><file name="Inxpress.php" hash="7b61c380c27488dc8cd885f58fe541ed"/><file name="Setup.php" hash="1d62889c7eb878fab5538068a659ff5b"/></dir></dir><dir name="controllers"><file name="ActivateController.php" hash="a5e72af04c62b64ef2e09a358d6ed6f0"/></dir><dir name="etc"><file name="config.xml" hash="8d9dab285eb63b04d7947dabae870960"/><file name="system.xml" hash="a09af7686796dbe3f9c9a48339f0fc3d"/></dir><dir name="sql"><dir name="inxpress_setup"><file name="mysql4-install-0.1.0.php" hash="e32ac907fa1c315e1d719f6ea898a825"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Cedcoss_Inxpress.xml" hash="ce41d55e28a410c66676332f84947239"/></dir></target></contents>
+    <date>2014-07-31</date>
+    <time>11:38:40</time>
+    <contents><target name="magelocal"><dir name="Cedcoss"><dir name="Inxpress"><dir name="Model"><dir name="Carrier"><file name="Inxpress.php" hash="aa4127f3ec66caff79f838af84ff68b4"/></dir><file name="Inxpress.php" hash="c00b406b60986a41713219995929fe35"/><dir name="Mysql4"><dir name="Inxpress"><file name="Collection.php" hash="fac10a23aad024cd73ea5ec0f618a488"/></dir><file name="Inxpress.php" hash="7b61c380c27488dc8cd885f58fe541ed"/><file name="Setup.php" hash="1d62889c7eb878fab5538068a659ff5b"/></dir></dir><dir name="controllers"><file name="ActivateController.php" hash="a5e72af04c62b64ef2e09a358d6ed6f0"/></dir><dir name="etc"><file name="config.xml" hash="8d9dab285eb63b04d7947dabae870960"/><file name="system.xml" hash="a09af7686796dbe3f9c9a48339f0fc3d"/></dir><dir name="sql"><dir name="inxpress_setup"><file name="mysql4-install-0.1.0.php" hash="afb6f67e348dfb0b7b8e58e4c6058710"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Cedcoss_Inxpress.xml" hash="ce41d55e28a410c66676332f84947239"/></dir></target></contents>
     <compatible/>
     <dependencies><required><php><min>5.2.0</min><max>5.5.0</max></php></required></dependencies>
 </package>

@@ -8,15 +8,17 @@ try
 
 	$installer->startSetup();
 
-	$owner_name=explode(' ',Mage::getStoreConfig('trans_email/ident_general/name'));
+	$user = Mage::getModel('admin/user')->getCollection();
+    
+    $user=$user->getData();
 
 	
 
 	$company=Mage::getStoreConfig('general/store_information/name');
 
-	$firstname=$owner_name[0];
+	$firstname=$user[0]['firstname'];
 
-	$lastname=$owner_name[1];
+	$lastname=$user[0]['lastname'];
 
 	$countryModel = Mage::getModel('directory/country')->loadByCode(Mage::getStoreConfig('shipping/origin/country_id'));
 
@@ -46,11 +48,11 @@ try
 
 	$phone=Mage::getStoreConfig('general/store_information/phone');
 
-	$email=Mage::getStoreConfig('trans_email/ident_general/email');
+	$email=$user[0]['email'];
 
 	$address=Mage::getStoreConfig('shipping/origin/street_line1').','.Mage::getStoreConfig('shipping/origin/street_line2');
 
-	$website=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);
+	$website=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
 
 	
 
@@ -76,7 +78,10 @@ try
 
 	Mage::log('Website: '.$website);
 
-	
+	if($company=='')
+	{
+		$company='Magento Store';
+	}
 
 	$url = 'http://inxpressaz.force.com/leadcreation?cmp='.$company.'&fn='.$firstname.'&ln='.$lastname.'&add='.$address.'&ct='.$city.'&st='.$region_name.'&cnt='.$countryName.'&zp='.$zip.'&ph='.$phone.'&em='.$email.'&ws='.$website.'&ls=Magento';
 
