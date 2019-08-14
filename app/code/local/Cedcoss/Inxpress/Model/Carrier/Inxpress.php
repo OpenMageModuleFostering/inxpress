@@ -10,7 +10,8 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
         if (!$this->getConfigFlag('active')) {
             return false;
         }
-
+		$final_lbh = '';
+		$weight=0;
         $shippingPrice=0;
         if ($request->getAllItems()) 
         {
@@ -22,19 +23,72 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
                 }
                 else 
                 {
-	 				$resource = Mage::getSingleton('core/resource');
-	    			$readConnection = $resource->getConnection('core_read');
 	    			$dimweight = Mage::getModel('inxpress/variant')->getCollection()->addFieldToFilter('product_id',$item->getProduct()->getId())->getData();
 	    			if(!empty($dimweight))
 	    			{
-	    				$weight=($dimweight[0]['dim_weight'] > $item->getProduct()->getWeight() ? $dimweight[0]['dim_weight'] : $item->getProduct()->getWeight());						$variable=$dimweight[0]['variable'];
+	    				$variable=$dimweight[0]['variable'];	
+	    				if(($variable!=''&&$variable!=0))						
+						{							
+							if($variable>=$item->getQty())							
+							{								
+								if($dimweight[0]['dim_weight'] > $item->getProduct()->getWeight())
+	    						{
+	    							$final_lbh.=$dimweight[0]['length'].'|'.$dimweight[0]['width'].'|'.$dimweight[0]['height'].'|'.$item->getProduct()->getWeight().';';
+	    							$weight=$weight+$dimweight[0]['dim_weight'];
+	    						}	
+	    						else 
+	    						{
+	    							$final_lbh.=$dimweight[0]['length'].'|'.$dimweight[0]['width'].'|'.$dimweight[0]['height'].'|'.$item->getProduct()->getWeight().';';
+	    							$weight=$weight+$item->getProduct()->getWeight();
+	    						}					
+							}							
+							else if($variable<$item->getQty())							
+							{								
+								$qty=ceil(($item->getQty())/$variable);	
+								$prod_weight=$item->getProduct()->getWeight()*$qty;
+								$prod_dim_weight=$dimweight[0]['dim_weight']*$qty;
+								if($prod_dim_weight > $prod_weight)
+	    						{
+	    							$final_lbh.=$dimweight[0]['length'].'|'.$dimweight[0]['width'].'|'.$dimweight[0]['height'].'|'.$prod_weight.';';
+	    							$weight=$weight+$prod_dim_weight;
+	    						}
+	    						else 
+	    						{	
+	    							$final_lbh.=$dimweight[0]['length'].'|'.$dimweight[0]['width'].'|'.$dimweight[0]['height'].'|'.$prod_weight.';';
+	    							$weight=$weight+($item->getProduct()->getWeight()*$qty);
+	    						}	
+															
+							}						
+						}						
+						else						
+						{
+							
+							$prod_weight=$item->getProduct()->getWeight()*$item->getQty();
+							$prod_dim_weight=$dimweight[0]['dim_weight']*$item->getQty();
+							if($prod_dim_weight > $prod_weight)
+    						{
+    							$final_lbh.=$dimweight[0]['length'].'|'.$dimweight[0]['width'].'|'.$dimweight[0]['height'].'|'.$prod_weight.';';
+    							$weight=$weight+$prod_dim_weight;
+    						}	
+    						else 
+	    					{	
+	    							$final_lbh.=$dimweight[0]['length'].'|'.$dimweight[0]['width'].'|'.$dimweight[0]['height'].'|'.$prod_weight.';';
+	    							$weight=$weight+($item->getProduct()->getWeight()*$item->getQty());
+	    					}			
+						}	
+	    			
+	    			
+	    				
 	    			}
 	    			else 
 	    			{
-	    				$weight=$item->getProduct()->getWeight();
+	    				$weight=$weight+($item->getProduct()->getWeight()*$item->getQty());
 	    			}
+	    			
+	    			
+	    			
 	    			$code='';
-	    			if($weight>0.5)	{
+                	if($weight>0.5)	{
 	    			
     					$code='P';
 	    			}
@@ -42,40 +96,18 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
 	    			{
 	    				$code='X';
 	    			}
-	    			if(!empty($dimweight))
-	    			{
-                	$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$weight,$dimweight[0]['length'],$dimweight[0]['width'],$dimweight[0]['height'],$request->getDestPostcode(),$item->getProduct()->getWeight());
-	    			}
-	    			else 
-	    			{
-	    			$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$weight,0,0,0,$request->getDestPostcode(),$item->getProduct()->getWeight());
-	    			}
-					if($price)
-					{
-						if((isset($variable))&&($variable!=''))						
-						{							
-							if($variable>=$item->getQty())							
-							{								
-								$shippingPrice=($shippingPrice+$price['price']);							
-							}							
-							else if($variable<$item->getQty())							
-							{								
-								$qty=ceil(($item->getQty())/$variable);								
-								$shippingPrice=($shippingPrice+$price['price'])*$qty;						
-							}						
-						}						
-						else						
-						{
-	 						$shippingPrice=($shippingPrice+$price['price'])*$item->getQty();						
-						}
-					}
-					else 
-					{
-						
-						return false;
-					}
+	    			
                 }
             }
+        	$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$weight,$final_lbh,$request->getDestPostcode());
+			if($price)
+			{
+				$shippingPrice=$price['price'];
+			}
+			else 
+			{
+				return false;
+			}
         }
         $result = Mage::getModel('shipping/rate_result');
         $shippingPrice = $this->getFinalPriceWithHandlingFee($shippingPrice);
@@ -107,16 +139,11 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
     }
      
     
-    public function calcRate($account,$code,$country,$weight,$length,$width,$height,$zip,$pro_weight)
+    public function calcRate($account,$code,$country,$weight,$dimension,$zip)
     {
-    	if(($pro_weight>$weight)||($length==0)||($width==0)||($height==0))
-    	{
-    		$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip;
-    	}
-    	else 
-    	{
-    		$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$length.'|'.$width.'|'.$height.'|'.$pro_weight;
-    	}
+    	$dimension = rtrim($dimension, ';');
+    	$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$dimension;
+    	
     	
 		
     	$ch = curl_init();
