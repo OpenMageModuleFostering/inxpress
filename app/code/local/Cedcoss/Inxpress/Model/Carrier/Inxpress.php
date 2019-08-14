@@ -143,7 +143,7 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
     public function calcRate($account,$code,$country,$weight,$dimension,$zip)
     {
     	$dimension = rtrim($dimension, ';');
-    	$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'http://www.ixpapi.com/ixpapp/rates.php?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$dimension;
+    	$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$dimension;
     	
     	//echo $url;die;
 		
