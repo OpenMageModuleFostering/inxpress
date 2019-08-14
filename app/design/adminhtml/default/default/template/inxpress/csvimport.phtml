@@ -6,7 +6,7 @@
 	<p class="form-buttons"><button style="" onclick="editForm.submit();" class="scalable" type="button" title="Apply Price" ><span><span><span>Import Csv</span></span></span></button></p>
 </div>
 <div class="entry-edit">
-    <form enctype="multipart/form-data" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('inxpress/adminhtml_index/importcsv'); ?>" id="edit_form">
+    <form enctype="multipart/form-data" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/adminhtml_index/importcsv'); ?>" id="edit_form">
 		<div>
 			<input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" name="form_key">
 		</div>
