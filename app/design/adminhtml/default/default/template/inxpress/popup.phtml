@@ -2,7 +2,7 @@
     <div class="entry-edit-head">
     <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Manage Options (values of your markup)') ?></h4>
     </div>
-	<form id="variant_form" action="<?php echo Mage::helper('adminhtml')->getUrl('inxpress/adminhtml_dhl/variantsave',array('product'=>$this->getRequest()->getParam('product'),'id'=>$this->getRequest()->getParam('id'))) ?>" method="post">
+	<form id="variant_form" action="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/adminhtml_dhl/variantsave',array('product'=>$this->getRequest()->getParam('product'),'id'=>$this->getRequest()->getParam('id'))) ?>" method="post">
     <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
 	<div class="box">
         <div class="hor-scroll">

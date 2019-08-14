@@ -11,7 +11,7 @@ class Cedcoss_Inxpress_Block_Adminhtml_Inxpress extends Mage_Adminhtml_Block_Wid
 		
 		$this->_addButton('import_csv', array(
         'label' => $this->__('Import Csv'),
-        'onclick' => "setLocation('{$this->getUrl('inxpress/adminhtml_index/import')}')",
+        'onclick' => "setLocation('{$this->getUrl('adminhtml/adminhtml_index/import')}')",
     ));
 		parent::__construct();
 		$this->_removeButton('add');

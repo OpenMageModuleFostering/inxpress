@@ -6,7 +6,7 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
      
       public function collectRates(Mage_Shipping_Model_Rate_Request $request)
       {
-      
+     
         if (!$this->getConfigFlag('active')) {
             return false;
         }
@@ -100,6 +100,7 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
                 }
             }
         	$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$weight,$final_lbh,$request->getDestPostcode());
+			//print_r($price);die('wkkk');
 			if($price)
 			{
 				$shippingPrice=$price['price'];
@@ -142,9 +143,9 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
     public function calcRate($account,$code,$country,$weight,$dimension,$zip)
     {
     	$dimension = rtrim($dimension, ';');
-    	$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$dimension;
+    	$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'http://www.ixpapi.com/ixpapp/rates.php?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$dimension;
     	
-    	
+    	//echo $url;die;
 		
     	$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,$url);

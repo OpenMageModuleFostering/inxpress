@@ -11,7 +11,7 @@
 		</reference>
 		
 	</default>
-	<inxpress_adminhtml_dhl_variant>
+	<adminhtml_adminhtml_dhl_variant>
 	
 		 <reference name="root">
             <action method="setTemplate">
@@ -23,5 +23,5 @@
 		<remove name="footer"/> 
 			<block type="inxpress/adminhtml_variant" name="inxpress" template="inxpress/popup.phtml"/>
 		</reference>
-	</inxpress_adminhtml_dhl_variant> 
+	</adminhtml_adminhtml_dhl_variant> 
 </layout>

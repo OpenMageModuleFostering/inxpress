@@ -19,7 +19,7 @@
     </default>
       <modules>
         <Cedcoss_Inxpress>
-          <version>0.1.2</version>
+          <version>0.1.5</version>
         </Cedcoss_Inxpress>
       </modules>
       
@@ -34,6 +34,26 @@
 	      </inxpress>
 	    </routers>
   	 </frontend>
+	 <admin>
+		<!-- <routers>
+			<inxpress>
+				<use>admin</use>
+				<args>
+					<module>Cedcoss_Inxpress</module>
+					<frontName>inxpress</frontName>
+				</args>
+			</inxpress>
+		</routers> -->
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<inxpress after="Mage_Adminhtml">Cedcoss_Inxpress</inxpress>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
 	 <adminhtml>
   		<menu>
 			
@@ -46,7 +66,7 @@
 
                                                                                                 <sort_order>0</sort_order>
 
-                                                                                                <action>inxpress/adminhtml_index/index</action>
+                                                                                                <action>adminhtml/adminhtml_index/index</action>
 
                                                                                 </variants>  
 																				<dhl module="inxpress">
@@ -55,7 +75,7 @@
 
                                                                                                 <sort_order>0</sort_order>
 
-                                                                                                <action>inxpress/adminhtml_dhl/index</action>
+                                                                                                <action>adminhtml/adminhtml_dhl/index</action>
 
                                                                                 </dhl>  																				
   					
@@ -73,6 +93,7 @@
   			</updates>
   		</layout>
 	</adminhtml>
+
       <global>
 		<helpers>
 

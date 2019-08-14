@@ -31,7 +31,7 @@ class Cedcoss_Inxpress_Adminhtml_IndexController extends Mage_Adminhtml_Controll
 			if(!isset($indexes['length'])||!isset($indexes['width'])||!isset($indexes['height'])||!isset($indexes['sku']))
 			{
 				Mage::getSingleton('adminhtml/session')->addError(Mage::helper('inxpress')->__('Some required attributes are missing.'));
-				$this->_redirect('inxpress/adminhtml_index/index');
+				$this->_redirect('adminhtml/adminhtml_index/index');
 				return;
 			}
 			$count=0;			$lbh_check=0;			$success=0;
@@ -63,7 +63,7 @@ class Cedcoss_Inxpress_Adminhtml_IndexController extends Mage_Adminhtml_Controll
 			Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('inxpress')->__('Csv Imported Successfully.'));
 			
 		}
-		$this->_redirect('inxpress/adminhtml_index/index');
+		$this->_redirect('adminhtml/adminhtml_index/index');
 	}
 	public function editAction()
 
@@ -101,18 +101,18 @@ class Cedcoss_Inxpress_Adminhtml_IndexController extends Mage_Adminhtml_Controll
 						$inxpress = Mage::getModel('inxpress/variant'); 
 						$inxpress->setData($data)->save();
 						Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('inxpress')->__('The variant data has been saved.'));
-						$this->_redirect('inxpress/adminhtml_index/new',array('id'=>$inxpress->getId()));
+						$this->_redirect('adminhtml/adminhtml_index/new',array('id'=>$inxpress->getId()));
 					
 					
 				}
 		}
 		if($this->getRequest()->getParam('back'))
 		{
-			$this->_redirect('inxpress/adminhtml_index/new',array('id'=>$inxpress->getId()));
+			$this->_redirect('adminhtml/adminhtml_index/new',array('id'=>$inxpress->getId()));
 		}
 		else
 		{
-			$this->_redirect('inxpress/adminhtml_index/index');
+			$this->_redirect('adminhtml/adminhtml_index/index');
 		}
 		
 	}
@@ -124,7 +124,7 @@ class Cedcoss_Inxpress_Adminhtml_IndexController extends Mage_Adminhtml_Controll
 		$ob=$obj->load($id);
 		$ob->delete();
 		Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('inxpress')->__('Product Variant Deleted Successfully...'));
-		$this->_redirect('inxpress/adminhtml_index/index');
+		$this->_redirect('adminhtml/adminhtml_index/index');
 	
 	}
 		public function massStatusAction()

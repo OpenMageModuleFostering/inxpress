@@ -96,18 +96,18 @@ class Cedcoss_Inxpress_Adminhtml_DhlController extends Mage_Adminhtml_Controller
 						$inxpress = Mage::getModel('inxpress/dhl'); 
 						$inxpress->setData($data)->save();
 						Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('inxpress')->__('The DHL Varient has been saved.'));
-						$this->_redirect('inxpress/adminhtml_index/new',array('id'=>$inxpress->getId()));
+						$this->_redirect('adminhtml/adminhtml_index/new',array('id'=>$inxpress->getId()));
 					
 					
 				}
 		}
 		if($this->getRequest()->getParam('back'))
 		{
-			$this->_redirect('inxpress/adminhtml_dhl/new',array('id'=>$inxpress->getId()));
+			$this->_redirect('adminhtml/adminhtml_dhl/new',array('id'=>$inxpress->getId()));
 		}
 		else
 		{
-			$this->_redirect('inxpress/adminhtml_dhl/index');
+			$this->_redirect('adminhtml/adminhtml_dhl/index');
 		}
 		
 	}
@@ -119,7 +119,7 @@ class Cedcoss_Inxpress_Adminhtml_DhlController extends Mage_Adminhtml_Controller
 		$ob=$obj->load($id);
 		$ob->delete();
 		Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('inxpress')->__('DHL Varient Deleted Successfully...'));
-		$this->_redirect('inxpress/adminhtml_dhl/index');
+		$this->_redirect('adminhtml/adminhtml_dhl/index');
 	
 	}
 		public function massStatusAction()
