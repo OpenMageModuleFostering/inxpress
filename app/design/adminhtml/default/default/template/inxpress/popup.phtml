@@ -1,0 +1,153 @@
+<div class="entity-edit" id="matage-options-panel">
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Manage Options (values of your markup)') ?></h4>
+    </div>
+	<form id="variant_form" action="<?php echo Mage::helper('adminhtml')->getUrl('inxpress/adminhtml_dhl/variantsave',array('product'=>$this->getRequest()->getParam('product'),'id'=>$this->getRequest()->getParam('id'))) ?>" method="post">
+    <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+	<div class="box">
+        <div class="hor-scroll">
+            <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
+                <tr id="markup-options-table">
+                    
+						<th>Product Name</th>
+                        <!--<th>supplies</th>-->
+						<th>length</th>
+						<th>width</th>
+						<th>height</th>
+						<th>dim_weight</th>
+						<th>variable</th>
+						
+                  
+                        
+                    </tr>
+                   
+                    <?php 
+					 $variant = Mage::getModel('inxpress/variant')->load($this->getRequest()->getParam('id'));
+					/* echo $this->getRequest()->getParam('id');$variant = Mage::getModel('inxpress/variant')->getCollection()->addFieldToFilter('product_id',$this->getRequest()->getParam('id'))->getFirstItem(); */ ?> 
+	 						
+					<tr class="option-row">
+						<td><input type="hidden" id="product_id" class="required-entry input-text required-entry" <?php if($variant->getId()){ ?> readonly <?php } ?> value="<?php echo $this->getRequest()->getParam('product') ?>" name="product_id"><input type="hidden"  name="variant" value="<?php echo Mage::getModel('catalog/product')->load($this->getRequest()->getParam('product'))->getName() ?>"/><?php echo Mage::getModel('catalog/product')->load($this->getRequest()->getParam('product'))->getName() ?></td>
+						<!--<td><input id="variant" class="required-entry input-text required-entry" type="text" value="<?php echo $variant->getVariant() ?>" name="variant"></td>-->
+						<td class="tdvariants length"><a><?php echo $variant->getLength() ?></a><input id="length" class="required-entry input-text required-entry" type="hidden" value="<?php echo $variant->getLength() ?>" name="length"></td>
+						<td class="tdvariants width"><a><?php echo $variant->getWidth() ?></a><input id="width" class="required-entry input-text required-entry" type="hidden" value="<?php echo $variant->getWidth() ?>" name="width"></td>
+						<td class="tdvariants height"><a><?php echo $variant->getHeight() ?></a><input id="height" class="required-entry input-text required-entry" type="hidden" value="<?php echo $variant->getHeight() ?>" name="height"></td>
+						<td class="tdvariants dim_weight"><a><?php echo $variant->getDimWeight() ?></a><input id="dim_weight" class="required-entry input-text required-entry" type="hidden" value="<?php echo $variant->getDimWeight() ?>" name="dim_weight"></td>
+						<td><input id="variable" class="required-entry input-text required-entry" type="text" value="<?php echo $variant->getVariable() ?>" name="variable"></td>
+						
+					</tr>
+                    		
+                   
+                 
+            </table>
+        </div>
+		<div class="hor-scroll">
+            <table class="dynamic-grid" cellspacing="0"  cellpadding="0">
+                <tr id="markup-options-table">
+                    
+                        <th>supplies</th>
+						<th>length</th>
+						<th>width</th>
+						<th>height</th>
+						<!--<th>dim_weight</th>
+						<th>variable</th>-->
+						<th>action</th>
+						
+                  
+                        
+                    </tr>
+                   
+                    <?php 
+					 $variants = Mage::getModel('inxpress/dhl')->getCollection();
+					/* echo $this->getRequest()->getParam('id');$variant = Mage::getModel('inxpress/variant')->getCollection()->addFieldToFilter('product_id',$this->getRequest()->getParam('id'))->getFirstItem(); */
+					foreach($variants as $variant)
+					{
+					?> 
+	 						
+					<tr class="option-row">
+						<td id="variant<?php echo $variant->getId() ?>" ><?php echo $variant->getSupplies() ?></td>
+						<td id="length<?php echo $variant->getId() ?>"><?php echo $variant->getLength() ?></td>
+						<td id="width<?php echo $variant->getId() ?>"><?php echo $variant->getWidth() ?></td>
+						<td id="height<?php echo $variant->getId() ?>"><?php echo $variant->getHeight() ?></td>
+						<!--<td id="dim_weight<?php echo $variant->getId() ?>"><?php echo $variant->getDimWeight() ?></td>
+						<td id="variable<?php echo $variant->getId() ?>"><?php echo $variant->getVariable() ?></td> -->
+						<td><input type="button" class="scalable"  value="Select" onclick="selectvariant('<?php echo $variant->getId() ?>');"></td>
+					</tr>
+                    		
+                   <?php } ?>
+                 
+            </table>
+        </div>
+      <button class="scalable save" type="submit">Save</button>
+    </div>
+	</form>
+	<script type="text/javascript">
+		function selectvariant(id)
+		{
+			/* 
+			length=parseFloat(document.getElementById('length'+id).innerHTML);
+			width=parseFloat(document.getElementById('width'+id).innerHTML);
+			height=parseFloat(document.getElementById('height'+id).innerHTML);
+			document.getElementById('length').value=document.getElementById('length'+id).innerHTML;
+			document.getElementById('width').value=document.getElementById('width'+id).innerHTML;
+			document.getElementById('height').value=document.getElementById('height'+id).innerHTML;
+			document.getElementById('dim_weight').value=Math.ceil((length*width*height)/139); */
+			length=parseFloat(inXpress('#length'+id).html());
+			width=parseFloat(inXpress('#width'+id).html());
+			height=parseFloat(inXpress('#height'+id).html());
+			inXpress('#length').val(length);
+			inXpress('.length a').html(length);
+			inXpress('#width').val(width);
+			inXpress('.width a').html(width);
+			inXpress('#height').val(height);
+			inXpress('.height a').html(height);
+			dim_weight=Math.ceil((length*width*height)/139);
+			inXpress('#dim_weight').val(dim_weight);
+			inXpress('.dim_weight a').html(dim_weight);
+			
+		}
+		inXpress('document').ready(function(){
+			inXpress('.tdvariants a').click(function(){
+				if(inXpress(this).parent().find('input[type=hidden]').attr('name')=='dim_weight')
+					return true;
+				inXpress(this).hide();
+				inXpress(this).parent().find('input[type=hidden]').attr('type','text');
+			});
+			inXpress('.tdvariants input').blur(function(){
+				updateValues();
+				inXpress(this).attr('type','hidden');
+				inXpress(this).parent().find('a').show();
+			});
+		});
+	function updateValues()
+		{
+			length=parseFloat(inXpress('#length').val());
+			width=parseFloat(inXpress('#width').val());
+			height=parseFloat(inXpress('#height').val());
+			dim_weight=Math.ceil((length*width*height)/139);
+			inXpress('.length a').html(length);
+			inXpress('.width a').html(width);
+			inXpress('.height a').html(height);
+			inXpress('.dim_weight a').html(dim_weight);
+			inXpress('#dim_weight').val(dim_weight);
+		}
+		inXpress("#variant_form").submit(function() {
+				
+				inXpress('#loading-mask').css('cssText','display:block !important;height:100px;z-index:9999;');
+				var url = inXpress('#variant_form').attr('action');// the script where you handle the form input.
+
+				inXpress.ajax({
+					   type: "POST",
+					   url: url,
+					   data: inXpress("#variant_form").serialize(), // serializes the form's elements.
+					   success: function(data)
+					   {
+						self.parent.location.reload();
+						 // show response from the php script.
+					   }
+					 });
+
+				return false; // avoid to execute the actual submit of the form.
+			});
+	</script>
+</div>
+

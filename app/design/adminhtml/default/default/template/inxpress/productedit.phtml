@@ -1,0 +1,84 @@
+<?php 
+	 $variant = Mage::getModel('inxpress/variant')->getCollection()->addFieldToFilter('product_id',$this->getRequest()->getParam('id'))->getFirstItem();
+	/* echo $this->getRequest()->getParam('id');
+	echo $variant->getId(); */
+	 ?>
+
+<tr>
+    <td class="label">Variant's</td>
+    <td class="grid tier" colspan="10">
+		<table cellspacing="0" id="group_prices_table" class="data border">
+					<colgroup><col width="120">
+			<col>
+			<col width="1">
+			</colgroup><thead>
+				<tr class="headings">
+				   
+				   
+				   
+							<th>Variant</th>
+							<th>length</th>
+							<th>width</th>
+							<th>height</th>
+							<th>dim_weight</th>
+							<th>variable</th>
+							<th  class="last">action</th>
+				  
+				</tr>
+			</thead>
+			<tbody id="group_price_container">
+				<tr>
+					
+							<td><?php echo Mage::getModel('catalog/product')->load($this->getRequest()->getParam('id'))->getName() ?></td>
+							<td><?php echo $variant->getLength() ?></td>
+							<td><?php echo $variant->getWidth() ?></td>
+							<td><?php echo $variant->getHeight() ?></td>
+							<td><?php echo $variant->getDimWeight() ?></td>
+							<td><?php echo $variant->getVariable() ?></td>
+							<td><a id="varient_edit" href="<?php echo Mage::helper('adminhtml')->getUrl('inxpress/adminhtml_dhl/variant',array('product'=>$this->getRequest()->getParam('id'),'id'=>$variant->getId()))?>">Add/Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</td>
+</tr>
+
+<script type="text/javascript">
+		inXpress(document).ready(function() {
+
+			//inXpress('#varient_edit').fancybox();
+			inXpress('#varient_edit').fancybox({ type: "iframe",
+												 afterClose  : function() { 
+																		window.location.reload();
+																	}
+												});
+		/* 	storeSelector("#storeselect").fancybox({
+					'closeBtn': false ,
+					'keys' : {
+						'close'  : null
+					  },
+					'helpers':{ 
+							'overlay' : {'closeClick': false}
+							}
+				});
+				centerloader();
+				storeSelector("#storeselector .bottom").css('display','none');
+			storeSelector("#storeselect").trigger('click');
+			storeSelector(window).resize(function(){
+					
+				centerloader();
+				
+			});
+			 */
+		});
+		function centerloader()
+		{
+				width=storeSelector(".loader-wrapper img").width();
+				
+				window_width=storeSelector(window).width();
+				window_height=storeSelector(window).height();
+				l_left=(window_width/2)-(width/2);
+				height=storeSelector(".loader-wrapper .loader").height();
+				l_top=(window_height/2)-(height/2);
+				storeSelector(".loader-wrapper img").css('left',l_left+'px').css('top',l_top+'px');
+		}
+	</script>

@@ -24,20 +24,50 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
                 {
 	 				$resource = Mage::getSingleton('core/resource');
 	    			$readConnection = $resource->getConnection('core_read');
-	    			if($item->getProduct()->getWeight()>=1)	{
-	    			
-    					$code='P';
+	    			$dimweight = Mage::getModel('inxpress/variant')->getCollection()->addFieldToFilter('product_id',$item->getProduct()->getId())->getData();
+	    			if(!empty($dimweight))
+	    			{
+	    				$weight=($dimweight[0]['dim_weight'] > $item->getProduct()->getWeight() ? $dimweight[0]['dim_weight'] : $item->getProduct()->getWeight());						$variable=$dimweight[0]['variable'];
 	    			}
 	    			else 
 	    			{
+	    				$weight=$item->getProduct()->getWeight();
+	    			}
+	    			$code='';
+	    			if($weight>0.5)	{
+	    			
+    					$code='P';
+	    			}
+	    			else if($weight!=0&&$weight<=0.5)
+	    			{
 	    				$code='X';
 	    			}
-                	$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$item->getProduct()->getWeight());
-	            	
+	    			if(!empty($dimweight))
+	    			{
+                	$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$weight,$dimweight[0]['length'],$dimweight[0]['width'],$dimweight[0]['height'],$request->getDestPostcode(),$item->getProduct()->getWeight());
+	    			}
+	    			else 
+	    			{
+	    			$price=$this->calcRate(Mage::getStoreConfig('carriers/inxpress/account'),$code,$request->getDestCountryId(),$weight,0,0,0,$request->getDestPostcode(),$item->getProduct()->getWeight());
+	    			}
 					if($price)
 					{
-						
-	 					$shippingPrice=($shippingPrice+$price['price'])*$item->getQty();
+						if((isset($variable))&&($variable!=''))						
+						{							
+							if($variable>=$item->getQty())							
+							{								
+								$shippingPrice=($shippingPrice+$price['price']);							
+							}							
+							else if($variable<$item->getQty())							
+							{								
+								$qty=ceil(($item->getQty())/$variable);								
+								$shippingPrice=($shippingPrice+$price['price'])*$qty;						
+							}						
+						}						
+						else						
+						{
+	 						$shippingPrice=($shippingPrice+$price['price'])*$item->getQty();						
+						}
 					}
 					else 
 					{
@@ -48,6 +78,7 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
             }
         }
         $result = Mage::getModel('shipping/rate_result');
+        $shippingPrice = $this->getFinalPriceWithHandlingFee($shippingPrice);
         if ($shippingPrice != 0) {
         	
             $method = Mage::getModel('shipping/rate_result_method');
@@ -76,9 +107,17 @@ class Cedcoss_Inxpress_Model_Carrier_Inxpress extends Mage_Shipping_Model_Carrie
     }
      
     
-    public function calcRate($account,$code,$country,$weight)
+    public function calcRate($account,$code,$country,$weight,$length,$width,$height,$zip,$pro_weight)
     {
-    	$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight;
+    	if(($pro_weight>$weight)||($length==0)||($width==0)||($height==0))
+    	{
+    		$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip;
+    	}
+    	else 
+    	{
+    		$url = Mage::getStoreConfig('carriers/inxpress/gateway_url').'?acc='.$account.'&dst='.$country.'&prd='.$code.'&wgt='.$weight.'&pst='.$zip.'&pcs='.$length.'|'.$width.'|'.$height.'|'.$pro_weight;
+    	}
+    	
 		
     	$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL,$url);

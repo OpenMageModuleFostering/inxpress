@@ -19,7 +19,7 @@
     </default>
       <modules>
         <Cedcoss_Inxpress>
-          <version>0.1.0</version>
+          <version>0.1.2</version>
         </Cedcoss_Inxpress>
       </modules>
       
@@ -34,7 +34,54 @@
 	      </inxpress>
 	    </routers>
   	 </frontend>
+	 <adminhtml>
+  		<menu>
+			
+  			<catalog>
+				
+  				<children>
+                                                                               <variants module="inxpress">
+
+                                                                                                <title>Manage Variants</title>
+
+                                                                                                <sort_order>0</sort_order>
+
+                                                                                                <action>inxpress/adminhtml_index/index</action>
+
+                                                                                </variants>  
+																				<dhl module="inxpress">
+
+                                                                                                <title>Manage Dhl</title>
+
+                                                                                                <sort_order>0</sort_order>
+
+                                                                                                <action>inxpress/adminhtml_dhl/index</action>
+
+                                                                                </dhl>  																				
+  					
+  				</children>
+  				
+  			</catalog>
+  		</menu>
+  		<!-- Admin Control Limit -->
+  		
+  		 <layout>
+  			<updates>
+  				<inxpress>
+  					<file>inxpress.xml</file>
+  				</inxpress>
+  			</updates>
+  		</layout>
+	</adminhtml>
       <global>
+		<helpers>
+
+			<inxpress>
+
+				<class>Cedcoss_Inxpress_Helper</class>
+
+			</inxpress>
+		</helpers>
         <models>
           <inxpress>
             <class>Cedcoss_Inxpress_Model</class>
@@ -42,6 +89,14 @@
           </inxpress>
           <inxpress_mysql4>
 	        <class>Cedcoss_Inxpress_Model_Mysql4</class>	
+			<entities>
+   				<variant>
+   					<table>inxpress_variant</table>
+   				</variant>
+				<dhl>
+   					<table>inxpress_dhl</table>
+   				</dhl>
+   			</entities>
 		  </inxpress_mysql4>
         </models>
         <resources>
@@ -55,5 +110,20 @@
             </connection>
           </inxpress_setup>
         </resources>
+		<blocks>
+
+					<inxpress>
+
+								<class>Cedcoss_Inxpress_Block</class>
+
+					</inxpress>
+					<adminhtml>  
+						 <rewrite>  
+								<catalog_product_edit_tab_attributes>Cedcoss_Inxpress_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes</catalog_product_edit_tab_attributes>               
+						</rewrite>
+					</adminhtml>					<bundle>						<rewrite>  								<adminhtml_catalog_product_edit_tab_attributes>Cedcoss_Inxpress_Block_Adminhtml_Bundle_Catalog_Product_Edit_Tab_Attributes</adminhtml_catalog_product_edit_tab_attributes>     						</rewrite>					</bundle>
+    			   
+  				
+         </blocks>
        </global>
     </config>

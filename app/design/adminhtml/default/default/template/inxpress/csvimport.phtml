@@ -1,0 +1,40 @@
+<div id="anchor-content" class="middle">
+            <div id="page:main-container">
+                            <div id="messages"></div>
+                <div class="content-header">
+    <h3 class="icon-head head-adminhtml-priceupdate">Csv Import</h3>    
+	<p class="form-buttons"><button style="" onclick="editForm.submit();" class="scalable" type="button" title="Apply Price" ><span><span><span>Import Csv</span></span></span></button></p>
+</div>
+<div class="entry-edit">
+    <form enctype="multipart/form-data" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('inxpress/adminhtml_index/importcsv'); ?>" id="edit_form">
+		<div>
+			<input type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" name="form_key">
+		</div>
+		<div class="entry-edit-head">
+			<h4 class="icon-head head-edit-form fieldset-legend">Price Update</h4>
+			<div class="form-buttons"></div>
+		</div>
+		<div id="base_fieldset" class="fieldset ">
+			<div class="hor-scroll">
+				<table cellspacing="0" class="form-list">
+					<tbody>
+			
+		
+						<tr>
+							<td class="label"><label for="price">CSV File <span class="required">*</span></label></td>
+							<td class="value">
+								<input type="file" class="required-entry"  title="File" name="file" id="file">            
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</form>
+</div>
+<script type="text/javascript">
+    editForm = new varienForm('edit_form', '');
+</script>
+                        </div>
+        </div>

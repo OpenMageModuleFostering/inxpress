@@ -17,7 +17,7 @@ class Cedcoss_Inxpress_ActivateController extends Mage_Core_Controller_Front_Act
 					$inxpresskey ->saveConfig('carriers/inxpress/gateway_url', 'http://www.ixpapi.com/ixpapp/rates.php', 'default', 0);
 					echo "Configuration Data Has Been Saved Successfully!!!!";die;
 	    		}
-	    	}
+	    	}	    	else 	    	{	    		echo "Key Is Not Provided";die;	    	}
     	}
 	    catch(Exception $e)
 	    {

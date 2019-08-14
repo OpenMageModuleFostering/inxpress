@@ -1,0 +1,27 @@
+<layout version="0.1.0">
+	<default>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><script>inxpress/js/jquery-1.10.1.min.js</script></action>
+			<action method="addItem"><type>skin_js</type><script>inxpress/js/jquery.fancybox.js</script></action>
+			<action method="addItem"><type>skin_js</type><script>inxpress/js/jquery.fancybox-buttons.js</script></action>
+			<action method="addItem"><type>skin_css</type><stylesheet>inxpress/css/jquery.fancybox.css?v=2.1.5</stylesheet></action>
+			<action method="addItem"><type>skin_css</type><stylesheet>inxpress/css/jquery.fancybox-buttons.css?v=1.0.5</stylesheet></action>
+			<action method="addItem"><type>skin_css</type><stylesheet>inxpress/css/styles.css</stylesheet></action>
+			
+		</reference>
+		
+	</default>
+	<inxpress_adminhtml_dhl_variant>
+	
+		 <reference name="root">
+            <action method="setTemplate">
+                <template>popup.phtml</template>
+            </action>
+        </reference>
+		<reference name="content">
+		<remove name="header"/>
+		<remove name="footer"/> 
+			<block type="inxpress/adminhtml_variant" name="inxpress" template="inxpress/popup.phtml"/>
+		</reference>
+	</inxpress_adminhtml_dhl_variant> 
+</layout>
