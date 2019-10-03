@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/InXpress",
+    "name": "openmage-module-fostering\/inxpress",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Get bulk discounted DHL Express rates, displayed in real-time to your customers.",
     "authors": [
